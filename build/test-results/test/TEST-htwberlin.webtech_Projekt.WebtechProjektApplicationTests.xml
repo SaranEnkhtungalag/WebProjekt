@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="htwberlin.webtech_Projekt.WebtechProjektApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-18T12:04:08" hostname="LAPTOP-5G9JVCMR" time="1.79">
+  <properties/>
+  <testcase name="contextLoads()" classname="htwberlin.webtech_Projekt.WebtechProjektApplicationTests" time="1.79"/>
+  <system-out><![CDATA[14:04:04.700 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [htwberlin.webtech_Projekt.WebtechProjektApplicationTests]: WebtechProjektApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:04:04.922 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration htwberlin.webtech_Projekt.WebtechProjektApplication for test class htwberlin.webtech_Projekt.WebtechProjektApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.4)
+
+2023-10-18T14:04:05.969+02:00  INFO 9368 --- [    Test worker] h.w.WebtechProjektApplicationTests       : Starting WebtechProjektApplicationTests using Java 17.0.2 with PID 9368 (started by Tungaa in C:\Users\Tungaa\Desktop\webtech_Projekt\webtech_Projekt)
+2023-10-18T14:04:05.969+02:00  INFO 9368 --- [    Test worker] h.w.WebtechProjektApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2023-10-18T14:04:08.579+02:00  INFO 9368 --- [    Test worker] h.w.WebtechProjektApplicationTests       : Started WebtechProjektApplicationTests in 3.298 seconds (process running for 6.466)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
