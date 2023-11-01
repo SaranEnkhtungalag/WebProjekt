@@ -6,6 +6,9 @@
 
 # BlueJ files
 *.ctxt
+### H2 DB ###
+*.mv.db
+*.trace.db
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
