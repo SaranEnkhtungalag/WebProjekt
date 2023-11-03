@@ -1,6 +1,7 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
 public class Item {
+   /*
    private Long itemID;
    private String name;
    private Category idCategory;
@@ -44,4 +45,6 @@ public class Item {
    public void setQuantity(int quantity) {
       this.quantity = quantity;
    }
+
+    */
 }

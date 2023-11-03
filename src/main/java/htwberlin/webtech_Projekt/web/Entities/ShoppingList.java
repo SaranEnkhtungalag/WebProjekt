@@ -1,21 +1,29 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class ShoppingList {
-
+    @Id
     private Long idShoppingList;
     private String shoppingName;
-    private List<Item> items = new ArrayList<>();
+    //private List<Item> items = new ArrayList<>();
     private boolean done;
     private LocalDate deadline;
+
+    public ShoppingList() {
+        // Default no-arg constructor
+    }
 
     public ShoppingList(Long idShoppingList, String shoppingName, List<Item> items, boolean done, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
-        this.items = items;
+        //this.items = items;
         this.done = done;
         this.deadline = deadline;
     }
@@ -35,14 +43,18 @@ public class ShoppingList {
     public void setShoppingName(String shoppingName) {
         this.shoppingName = shoppingName;
     }
-
+/*
     public List<Item> getItems() {
         return items;
     }
 
+ */
+/*
     public void setItems(List<Item> items) {
         this.items = items;
     }
+
+ */
 
     public boolean isDone() {
         return done;
