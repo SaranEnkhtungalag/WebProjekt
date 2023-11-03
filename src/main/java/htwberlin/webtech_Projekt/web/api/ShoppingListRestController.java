@@ -10,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -28,8 +26,7 @@ public class ShoppingListRestController {
         return service.save(shoppingList);
     }
 
-/*
-    @PostMapping("/shoppingList")
+    @PostMapping("/shoppingListV2")
     public ResponseEntity<ShoppingList> createShoppingListV2(@RequestBody ShoppingList shoppingListEntity) {
         try {
             ShoppingList createdShoppingList = service.save(shoppingListEntity);
@@ -39,7 +36,6 @@ public class ShoppingListRestController {
         }
     }
 
- */
 
     @GetMapping("/shoppingList/{id}")
     public ShoppingList getShoppinList(@PathVariable String id) {
@@ -66,39 +62,11 @@ public class ShoppingListRestController {
     }
 
     @PutMapping("/shoppingList/{id}")
-    public ShoppingList updateShoppingList(@PathVariable Long id) {
-        Scanner scanner = new Scanner(System.in);
-        ShoppingList shoppingList = service.get(id);
-
-        System.out.println("Which value do you want to update?");
-        System.out.println("Write 1 to change the name");
-        System.out.println("Write 2 to change the status done/not done");
-        System.out.println("Write 3 to change the deadline");
-        int choice = scanner.nextInt();
-
-        switch (choice) {
-            case 1:
-                System.out.println("Enter new name:");
-                scanner.nextLine();
-                String newName = scanner.nextLine();
-                shoppingList.setShoppingName(newName);
-                break;
-            case 2:
-                System.out.println("Set done (true/false):");
-                boolean done = scanner.nextBoolean();
-                shoppingList.setDone(done);
-                break;
-            case 3:
-                System.out.println("Enter new deadline (yyyy-MM-dd):");
-                String dateStr = scanner.next();
-                LocalDate newDeadline = LocalDate.parse(dateStr);
-                shoppingList.setDeadline(newDeadline);
-                break;
-            default:
-                System.out.println("Invalid choice.");
-        }
-        return service.update(id, shoppingList);
+    public ResponseEntity<ShoppingList> updateShoppingList(
+            @PathVariable Long id,
+            @RequestBody ShoppingList updatedShoppingList) {
+        ShoppingList updatedItem = service.update(id, updatedShoppingList);
+        return ResponseEntity.ok(updatedItem);
     }
-
 
 }
