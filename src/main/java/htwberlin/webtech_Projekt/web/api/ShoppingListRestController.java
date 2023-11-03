@@ -21,28 +21,20 @@ public class ShoppingListRestController {
 
     Logger logger = LoggerFactory.getLogger(ShoppingListRestController.class);
 
-    @PostMapping("/shoppingList")
+    @PostMapping("/shoppingLists")
     public ShoppingList createShoppingList(@RequestBody ShoppingList shoppingList) {
         return service.save(shoppingList);
     }
 
-    @PostMapping("/shoppingListV2")
-    public ResponseEntity<ShoppingList> createShoppingListV2(@RequestBody ShoppingList shoppingListEntity) {
-        try {
-            ShoppingList createdShoppingList = service.save(shoppingListEntity);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdShoppingList);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-
-
-    @GetMapping("/shoppingList/{id}")
-    public ShoppingList getShoppinList(@PathVariable String id) {
-      logger.info("Get ...", id);
-      Long shoppingId = Long.parseLong(id);
-      return service.get(shoppingId);
-    }
+//    @PostMapping("/shoppingListV2")
+//    public ResponseEntity<ShoppingList> createShoppingListV2(@RequestBody ShoppingList shoppingListEntity) {
+//        try {
+//            ShoppingList createdShoppingList = service.save(shoppingListEntity);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(createdShoppingList);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//        }
+//    }
 
     // to see all the shopping lists
     @GetMapping("/shoppingLists")
@@ -51,7 +43,16 @@ public class ShoppingListRestController {
         return ResponseEntity.ok(shoppingLists);
     }
 
-    @DeleteMapping("/shoppingList/{id}")
+    @GetMapping("/shoppingLists/{id}")
+    public ShoppingList getShoppingList(@PathVariable String id) {
+    //  logger.info("Get ...", id);
+      Long shoppingId = Long.parseLong(id);
+      return service.get(shoppingId);
+    }
+
+
+
+    @DeleteMapping("/shoppingLists/{id}")
     public ResponseEntity<String> deleteShoppingList(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -61,7 +62,7 @@ public class ShoppingListRestController {
         }
     }
 
-    @PutMapping("/shoppingList/{id}")
+    @PutMapping("/shoppingLists/{id}")
     public ResponseEntity<ShoppingList> updateShoppingList(
             @PathVariable Long id,
             @RequestBody ShoppingList updatedShoppingList) {

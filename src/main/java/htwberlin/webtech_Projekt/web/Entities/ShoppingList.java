@@ -1,15 +1,18 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "shoppingLists")
 public class ShoppingList {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idShoppingList;
     private String shoppingName;
     //private List<Item> items = new ArrayList<>();
@@ -20,7 +23,7 @@ public class ShoppingList {
         // Default no-arg constructor
     }
 
-    public ShoppingList(Long idShoppingList, String shoppingName, List<Item> items, boolean done, LocalDate deadline) {
+    public ShoppingList(Long idShoppingList, String shoppingName, /*List<Item> items,*/ boolean done, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
         //this.items = items;
