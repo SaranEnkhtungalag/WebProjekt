@@ -1,32 +1,36 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity(name = "shoppingLists")
 public class ShoppingList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long idShoppingList;
+    @Column(name = "name")
     private String shoppingName;
-    //private List<Item> items = new ArrayList<>();
+    @Column(name = "done")
     private boolean done;
+    @Column(name = "deadline")
     private LocalDate deadline;
 
+    @OneToMany(mappedBy = "shopid", fetch = FetchType.EAGER)
+    private List<ItemEntity> items = new ArrayList<>();
     public ShoppingList() {
         // Default no-arg constructor
     }
 
-    public ShoppingList(Long idShoppingList, String shoppingName, /*List<Item> items,*/ boolean done, LocalDate deadline) {
+
+    public ShoppingList(Long idShoppingList, String shoppingName, List<ItemEntity> items,boolean done, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
-        //this.items = items;
+        this.items = items;
         this.done = done;
         this.deadline = deadline;
     }
@@ -46,18 +50,13 @@ public class ShoppingList {
     public void setShoppingName(String shoppingName) {
         this.shoppingName = shoppingName;
     }
-/*
-    public List<Item> getItems() {
+
+    public List<ItemEntity> getItems() {
         return items;
     }
-
- */
-/*
-    public void setItems(List<Item> items) {
+    public void setItems(List<ItemEntity> items) {
         this.items = items;
     }
-
- */
 
     public boolean isDone() {
         return done;
