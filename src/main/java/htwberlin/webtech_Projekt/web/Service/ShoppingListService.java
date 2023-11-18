@@ -1,4 +1,5 @@
 package htwberlin.webtech_Projekt.web.Service;
+//This is a service class responsible for implementing business logic related to shopping lists.
 
 import htwberlin.webtech_Projekt.web.Entities.ShoppingList;
 import htwberlin.webtech_Projekt.web.Repositories.ShoppingListRepository;

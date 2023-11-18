@@ -1,4 +1,5 @@
 package htwberlin.webtech_Projekt.web.api;
+//This class is a REST controller responsible for handling HTTP requests related to shopping lists.
 
 import htwberlin.webtech_Projekt.web.Entities.ShoppingList;
 import htwberlin.webtech_Projekt.web.Service.ShoppingListService;
@@ -40,7 +41,7 @@ public class ShoppingListRestController {
     @GetMapping("/shoppingLists")
     public ResponseEntity<List<ShoppingList>> getAllShoppingLists() {
         List<ShoppingList> shoppingLists = service.getAllShoppingLists();
-        return ResponseEntity.ok(shoppingLists);
+        return ResponseEntity.ok(shoppingLists); //.ok erzeugt eine Rückgabe
     }
 
     @GetMapping("/shoppingLists/{id}")
@@ -49,7 +50,6 @@ public class ShoppingListRestController {
       Long shoppingId = Long.parseLong(id);
       return service.get(shoppingId);
     }
-
 
 
     @DeleteMapping("/shoppingLists/{id}")
