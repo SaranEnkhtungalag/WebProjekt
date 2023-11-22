@@ -4,19 +4,19 @@ import htwberlin.webtech_Projekt.web.Entities.Category;
 import htwberlin.webtech_Projekt.web.Entities.CategoryEntity;
 import htwberlin.webtech_Projekt.web.Repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
-import htwberlin.webtech_Projekt.web.Entities.Category;
-import htwberlin.webtech_Projekt.web.Entities.CategoryEntity;
-import htwberlin.webtech_Projekt.web.Repositories.CategoryRepository;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 @Service
 public class CategoryService {
+    /*
+    @PersistenceContext
+    private EntityManager entityManager;
+
+     */
 
     private final CategoryRepository repo;
 
@@ -24,27 +24,35 @@ public class CategoryService {
         this.repo = repo;
     }
 
-    public List<Category> findAll(){
+    public List<CategoryEntity> findAll(){
         List<CategoryEntity> categories = repo.findAll();
-        return categories.stream().map(categoryEntity -> new Category(
+        return categories.stream().map(categoryEntity -> new CategoryEntity(
                 categoryEntity.getCategoryID(),
                 categoryEntity.getCategoryName()
         )).collect(Collectors.toList());
     }
 
 
-    public Category findById(Long id) {
+    public CategoryEntity findById(Long id) {
         CategoryEntity categoryEntity = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
-        return new Category(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
+        return new CategoryEntity(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
     }
-
-    public Category save(Category category) {
-        CategoryEntity categoryEntity = new CategoryEntity(category.getCategoryID() , category.getCategoryName());
+/*
+    public CategoryEntity save(CategoryEntity category) {
+        CategoryEntity categoryEntity = new CategoryEntity(CategoryEntity.getCategoryID() , CategoryEntity.getCategoryName());
         return mapToCategory(repo.save(categoryEntity));
     }
 
-    public Category update(Long id, Category updatedCategory) {
+ */
+
+    public CategoryEntity save(CategoryEntity category) {
+        CategoryEntity categoryEntity = new CategoryEntity(category.getCategoryID(), category.getCategoryName());
+        return mapToCategory(repo.save(categoryEntity));
+    }
+
+
+    public CategoryEntity update(Long id, CategoryEntity updatedCategory) {
         CategoryEntity existingCategory = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -54,8 +62,10 @@ public class CategoryService {
         return mapToCategory(repo.save(existingCategory));
     }
 
-    private Category mapToCategory(CategoryEntity categoryEntity) {
-        return new Category(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
+
+
+    private CategoryEntity mapToCategory(CategoryEntity categoryEntity) {
+        return new CategoryEntity(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
     }
 
     public boolean existsByName(String categoryName) {
@@ -68,6 +78,23 @@ public class CategoryService {
 
     public void deleteAllCategories() {
         repo.deleteAll();
+
+        // Reset the sequence for the ID column (assuming it's auto-incrementing)
+        //resetCategorySequence();
     }
+
+    /*
+    // to reset the categories IDs
+    private void resetCategorySequence() {
+        // The exact syntax might depend on the database you're using.
+        // Below is an example for PostgreSQL; adjust it based on your database.
+
+        String resetSequenceQuery = "ALTER SEQUENCE category_id_seq RESTART WITH 1";
+
+        // Execute the native query to reset the sequence
+        entityManager.createNativeQuery(resetSequenceQuery).executeUpdate();
+    }
+
+     */
 
 }

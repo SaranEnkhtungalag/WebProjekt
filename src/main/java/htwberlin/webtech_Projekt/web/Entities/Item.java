@@ -3,14 +3,19 @@ package htwberlin.webtech_Projekt.web.Entities;
 public class Item {
 
     private Long itemID;
-    private String name;
-    //  private Category idCategory;
+    private String itemName;
+    private ShoppingList shopid;
+
+    private CategoryEntity categoryID;
+
     private int quantity;
 
-    public Item(Long itemID, String name, int quantity) {
+    public Item(Long itemID, String itemName, int quantity/*, ShoppingList shopid */, CategoryEntity categoryID) {
         this.itemID = itemID;
-        this.name = name;
+        this.itemName = itemName;
         this.quantity = quantity;
+        //this.shopid = shopid;
+        this.categoryID = categoryID;
     }
 
     public Long getItemID() {
@@ -22,11 +27,11 @@ public class Item {
     }
 
     public String getName() {
-        return name;
+        return itemName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.itemName = name;
     }
 
     public int getQuantity() {

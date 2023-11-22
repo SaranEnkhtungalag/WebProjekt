@@ -1,6 +1,8 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity(name = "categories")
 public class CategoryEntity {
@@ -12,9 +14,15 @@ public class CategoryEntity {
     @Column(name = "categoryName", nullable = false)
     private String categoryName;
 
+    @OneToMany(mappedBy = "categoryID", cascade = CascadeType.ALL)
+    private List<ItemEntity> items;
+
     public CategoryEntity(Long categoryID, String categoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
+    }
+    public CategoryEntity(Long categoryID) {
+        this.categoryID = categoryID;
     }
 
     public CategoryEntity() {
