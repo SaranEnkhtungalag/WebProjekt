@@ -19,10 +19,12 @@ public class ItemEntity {
     @JoinColumn(name= "shop_id", referencedColumnName = "id")
     private ShoppingList shopid;
 
-
     @ManyToOne // Many items can belong to one category
     @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
     private CategoryEntity categoryID;
+
+    @Column(name = "done")
+    private Boolean done;
 
 
     public ItemEntity(Long itemID, String itemName, int quantity /*, ShoppingList shopid */, CategoryEntity categoryID) {
@@ -31,7 +33,9 @@ public class ItemEntity {
       this.quantity = quantity;
       //this.shopid = shopid;
       this.categoryID = categoryID;
+      done = false;
     }
+
 
     public ItemEntity() { }
 
@@ -55,7 +59,7 @@ public class ItemEntity {
       this.categoryID = categoryID;
    }
 
-    /*
+   /*
     public ShoppingList getShopid() {
         return shopid;
     }
@@ -66,7 +70,6 @@ public class ItemEntity {
 
      */
 
-
     public int getQuantity() {
       return quantity;
    }
@@ -74,4 +77,12 @@ public class ItemEntity {
     public void setQuantity(int quantity) {
       this.quantity = quantity;
    }
+
+    public Boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
 }

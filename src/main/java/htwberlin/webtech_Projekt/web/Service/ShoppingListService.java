@@ -36,7 +36,7 @@ public class ShoppingListService {
         if (updatedShoppingList.getShoppingName() != null) {
             existingShoppingList.setShoppingName(updatedShoppingList.getShoppingName());
         }
-        if (updatedShoppingList.isDone() != existingShoppingList.isDone()) {
+        if (updatedShoppingList.isDone() != null) {
             existingShoppingList.setDone(updatedShoppingList.isDone());
         }
         if (updatedShoppingList.getDeadline() != null) {

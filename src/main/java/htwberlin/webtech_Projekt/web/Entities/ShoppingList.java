@@ -16,7 +16,7 @@ public class ShoppingList {
     @Column(name = "name")
     private String shoppingName;
     @Column(name = "done")
-    private boolean done;
+    private Boolean done;
     @Column(name = "deadline")
     private LocalDate deadline;
 
@@ -58,7 +58,7 @@ public class ShoppingList {
         this.items = items;
     }
 
-    public boolean isDone() {
+    public Boolean isDone() {
         return done;
     }
 

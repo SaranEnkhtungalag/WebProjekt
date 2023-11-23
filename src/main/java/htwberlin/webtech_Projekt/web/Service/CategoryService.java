@@ -12,11 +12,9 @@ import javax.persistence.PersistenceContext;
 
 @Service
 public class CategoryService {
-    /*
+
     @PersistenceContext
     private EntityManager entityManager;
-
-     */
 
     private final CategoryRepository repo;
 
@@ -38,16 +36,9 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         return new CategoryEntity(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
     }
-/*
-    public CategoryEntity save(CategoryEntity category) {
-        CategoryEntity categoryEntity = new CategoryEntity(CategoryEntity.getCategoryID() , CategoryEntity.getCategoryName());
-        return mapToCategory(repo.save(categoryEntity));
-    }
 
- */
-
-    public CategoryEntity save(CategoryEntity category) {
-        CategoryEntity categoryEntity = new CategoryEntity(category.getCategoryID(), category.getCategoryName());
+    public CategoryEntity save(CategoryEntity newCategory) {
+        CategoryEntity categoryEntity = new CategoryEntity(newCategory.getCategoryID(), newCategory.getCategoryName());
         return mapToCategory(repo.save(categoryEntity));
     }
 
@@ -68,6 +59,7 @@ public class CategoryService {
         return new CategoryEntity(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
     }
 
+    // this method is used to predefine categories in CategoryRestController
     public boolean existsByName(String categoryName) {
         return repo.existsCategoryByCategoryName(categoryName);
     }

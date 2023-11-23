@@ -10,6 +10,8 @@ public class Item {
 
     private int quantity;
 
+    private boolean done;
+
     public Item(Long itemID, String itemName, int quantity/*, ShoppingList shopid */, CategoryEntity categoryID) {
         this.itemID = itemID;
         this.itemName = itemName;
@@ -40,5 +42,13 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

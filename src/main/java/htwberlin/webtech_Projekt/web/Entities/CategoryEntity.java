@@ -11,8 +11,10 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryID", nullable = false)
     private Long categoryID;
+
     @Column(name = "categoryName", nullable = false)
     private String categoryName;
+
 
     @OneToMany(mappedBy = "categoryID", cascade = CascadeType.ALL)
     private List<ItemEntity> items;
@@ -24,6 +26,7 @@ public class CategoryEntity {
     public CategoryEntity(Long categoryID) {
         this.categoryID = categoryID;
     }
+
 
     public CategoryEntity() {
     }

@@ -116,7 +116,7 @@ public class CategoryRestController {
     // to delete all categories
     public ResponseEntity<String> deleteAllCategories() {
         categoryService.deleteAllCategories();
-        return ResponseEntity.ok("All categories deleted successfully");
+        return ResponseEntity.ok("All categories were deleted successfully");
     }
 
 

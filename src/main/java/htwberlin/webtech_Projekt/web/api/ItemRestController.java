@@ -23,17 +23,18 @@ public class ItemRestController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping("/items/{id}")
+    public ResponseEntity<ItemEntity> getItem(@PathVariable Long id) {
+        ItemEntity item = itemService.findById(id);
+        return ResponseEntity.ok(item);
+    }
+
     @PostMapping("/items")
     public ResponseEntity<ItemEntity> createItem(@RequestBody ItemEntity item) {
         ItemEntity createdItem = itemService.save(item);
         return ResponseEntity.ok(createdItem);
     }
 
-    @GetMapping("/items/{id}")
-    public ResponseEntity<ItemEntity> getItem(@PathVariable Long id) {
-        ItemEntity item = itemService.findById(id);
-        return ResponseEntity.ok(item);
-    }
 
     @PutMapping("/items/{id}")
     public ResponseEntity<ItemEntity> updateItem(@PathVariable Long id, @RequestBody ItemEntity updatedItem) {
@@ -46,4 +47,15 @@ public class ItemRestController {
         itemService.delete(id);
         return ResponseEntity.ok("Item deleted successfully");
     }
+
+
+    @DeleteMapping("/items/deleteAll")
+    // to delete all items
+    public ResponseEntity<String> deleteAllItems() {
+        itemService.deleteAllItems();
+        return ResponseEntity.ok("All items were deleted successfully");
+    }
+
+
 }
+
