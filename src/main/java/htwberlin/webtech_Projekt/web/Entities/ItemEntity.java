@@ -59,7 +59,7 @@ public class ItemEntity {
       this.categoryID = categoryID;
    }
 
-   /*
+
     public ShoppingList getShopid() {
         return shopid;
     }
@@ -68,7 +68,7 @@ public class ItemEntity {
         this.shopid = shopid;
     }
 
-     */
+
 
     public int getQuantity() {
       return quantity;

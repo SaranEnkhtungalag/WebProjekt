@@ -5,8 +5,20 @@ import htwberlin.webtech_Projekt.web.Entities.ShoppingList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface ShoppingListRepository extends CrudRepository<ShoppingList, Long> {
+
+    /*
+    //Working on
+    ShoppingList findFirstByDoneOrderByDeadlineAsc(boolean done);
+
+    @Query("SELECT sl FROM shoppingLists sl WHERE sl.done = :done ORDER BY sl.deadline ASC")
+    List<ShoppingList> findFirstByDoneOrderByDeadlineAscLimit1(@Param("done") boolean done, Pageable pageable);
+     */
 
 }

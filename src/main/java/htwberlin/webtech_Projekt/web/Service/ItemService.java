@@ -1,10 +1,13 @@
 package htwberlin.webtech_Projekt.web.Service;
 
+import htwberlin.webtech_Projekt.web.Entities.ShoppingList;
 import htwberlin.webtech_Projekt.web.Entities.CategoryEntity;
 import htwberlin.webtech_Projekt.web.Entities.ItemEntity;
 import htwberlin.webtech_Projekt.web.Repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +18,16 @@ public class ItemService {
     private final ItemRepository repo;
     private final CategoryService categoryService;  // Inject CategoryService
 
+    private ShoppingListService shoppingListService;
+
     @Autowired
     public ItemService(ItemRepository repo, CategoryService categoryService) {
         this.repo = repo;
         this.categoryService =categoryService;
     }
+
+
+
 
     public List<ItemEntity> findAll() {
         return repo.findAll();
@@ -97,6 +105,25 @@ public class ItemService {
         repo.deleteAll();
 
     }
+
+    /*
+    //Working on
+    @Transactional
+    public void updateItemsForNewShoppingList(List<ItemEntity> items) {
+        ShoppingList newShoppingList = shoppingListService.getCurrentShoppingList();
+
+        for (ItemEntity item : items) {
+            if (!item.isDone()) {
+                // Update items that are not done to be in the new shopping list
+                item.setShopid(newShoppingList);
+            } else {
+                // Delete items that are done
+                delete(item.getItemID());
+            }
+        }
+    }
+
+     */
 
 
 }

@@ -73,4 +73,7 @@ public class ShoppingList {
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
+
+
+
 }

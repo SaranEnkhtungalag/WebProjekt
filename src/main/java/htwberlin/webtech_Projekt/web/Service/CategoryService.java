@@ -54,7 +54,6 @@ public class CategoryService {
     }
 
 
-
     private CategoryEntity mapToCategory(CategoryEntity categoryEntity) {
         return new CategoryEntity(categoryEntity.getCategoryID(), categoryEntity.getCategoryName());
     }
@@ -71,22 +70,7 @@ public class CategoryService {
     public void deleteAllCategories() {
         repo.deleteAll();
 
-        // Reset the sequence for the ID column (assuming it's auto-incrementing)
-        //resetCategorySequence();
     }
 
-    /*
-    // to reset the categories IDs
-    private void resetCategorySequence() {
-        // The exact syntax might depend on the database you're using.
-        // Below is an example for PostgreSQL; adjust it based on your database.
-
-        String resetSequenceQuery = "ALTER SEQUENCE category_id_seq RESTART WITH 1";
-
-        // Execute the native query to reset the sequence
-        entityManager.createNativeQuery(resetSequenceQuery).executeUpdate();
-    }
-
-     */
 
 }

@@ -64,10 +64,15 @@ public class CategoryRestController {
         return ResponseEntity.ok(categories);
     }
 
+
     @GetMapping("/categories/{id}")
-    public ResponseEntity<CategoryEntity> getCategory(@PathVariable Long id) {
-        CategoryEntity category = categoryService.findById(id);
-        return ResponseEntity.ok(category);
+    public ResponseEntity<?> getCategory(@PathVariable Long id) {
+        try {
+            CategoryEntity category = categoryService.findById(id);
+            return ResponseEntity.ok(category);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The Category with ID " + id + " doesn't exist");
+        }
     }
 
 
@@ -79,18 +84,15 @@ public class CategoryRestController {
 
 
     @PutMapping("/categories/{id}")
-    public ResponseEntity<CategoryEntity> updateCategory(@PathVariable Long id, @RequestBody CategoryEntity updatedCategory) {
-        CategoryEntity updatedCategoryResult = categoryService.update(id, updatedCategory);
-        return ResponseEntity.ok(updatedCategoryResult);
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CategoryEntity updatedCategory) {
+        try {
+            CategoryEntity updatedCategoryResult = categoryService.update(id, updatedCategory);
+            return ResponseEntity.ok(updatedCategoryResult);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The Category with ID " + id + " doesn't exist");
+        }
     }
 
-    /*
-    @DeleteMapping("/categories/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        categoryService.delete(id);
-        return ResponseEntity.ok("Category deleted successfully");
-    }
-     */
 
     @DeleteMapping("/categories/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
@@ -111,14 +113,12 @@ public class CategoryRestController {
     }
 
 
-
     @DeleteMapping("/categories/deleteAll")
     // to delete all categories
     public ResponseEntity<String> deleteAllCategories() {
         categoryService.deleteAllCategories();
         return ResponseEntity.ok("All categories were deleted successfully");
     }
-
 
 
 }
