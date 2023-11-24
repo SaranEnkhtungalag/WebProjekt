@@ -7,10 +7,9 @@ import htwberlin.webtech_Projekt.web.Repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class ItemService {
@@ -25,8 +24,6 @@ public class ItemService {
         this.repo = repo;
         this.categoryService =categoryService;
     }
-
-
 
 
     public List<ItemEntity> findAll() {
@@ -60,7 +57,7 @@ public class ItemService {
                     item.getItemID(),
                     item.getitemName(),
                     item.getQuantity(),
-                    //item.getShopid(),
+                    item.getShopid(),
                     item.getcategoryID()
             );
 
@@ -74,7 +71,7 @@ public class ItemService {
 
 
     private ItemEntity mapToItem(ItemEntity itemEntity) {
-        return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity()/*, itemEntity.getShopid()*/, itemEntity.getcategoryID());
+        return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity(), itemEntity.getShopid(), itemEntity.getcategoryID());
     }
 
 

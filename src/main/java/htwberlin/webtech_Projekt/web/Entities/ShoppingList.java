@@ -1,10 +1,12 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity(name = "shoppingLists")
@@ -20,8 +22,10 @@ public class ShoppingList {
     @Column(name = "deadline")
     private LocalDate deadline;
 
-    @OneToMany(mappedBy = "shopid", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "shopid", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemEntity> items = new ArrayList<>();
+
     public ShoppingList() {
         // Default no-arg constructor
     }
@@ -30,7 +34,7 @@ public class ShoppingList {
     public ShoppingList(Long idShoppingList, String shoppingName, List<ItemEntity> items,boolean done, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
-        this.items = items;
+        this.items = items != null ? items : new ArrayList<>();
         this.done = done;
         this.deadline = deadline;
     }

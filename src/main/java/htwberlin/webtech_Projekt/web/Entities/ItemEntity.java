@@ -1,6 +1,9 @@
 package htwberlin.webtech_Projekt.web.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class ItemEntity {
@@ -15,8 +18,10 @@ public class ItemEntity {
     @Column(name = "quantity")
     private int quantity;
 
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name= "shop_id", referencedColumnName = "id")
+    @JsonIgnore
     private ShoppingList shopid;
 
     @ManyToOne // Many items can belong to one category
@@ -27,11 +32,11 @@ public class ItemEntity {
     private Boolean done;
 
 
-    public ItemEntity(Long itemID, String itemName, int quantity /*, ShoppingList shopid */, CategoryEntity categoryID) {
+    public ItemEntity(Long itemID, String itemName, int quantity , ShoppingList shopid , CategoryEntity categoryID) {
       this.itemID = itemID;
       this.itemName = itemName;
       this.quantity = quantity;
-      //this.shopid = shopid;
+      this.shopid = shopid;
       this.categoryID = categoryID;
       done = false;
     }
@@ -66,8 +71,8 @@ public class ItemEntity {
 
     public void setShopid(ShoppingList shopid) {
         this.shopid = shopid;
+        shopid.getItems().add(this); // Update the other side of the relationship
     }
-
 
 
     public int getQuantity() {
