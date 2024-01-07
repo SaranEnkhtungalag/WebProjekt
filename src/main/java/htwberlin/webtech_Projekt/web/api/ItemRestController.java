@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ItemRestController {
 
     private final ItemService itemService;
