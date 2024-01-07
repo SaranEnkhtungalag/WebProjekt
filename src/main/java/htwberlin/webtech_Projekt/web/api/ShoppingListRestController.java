@@ -47,14 +47,69 @@ public class ShoppingListRestController {
         return ResponseEntity.ok(shoppingLists);
     }
 
-
+/*
     @GetMapping("/shoppingLists/{id}")
     public ResponseEntity<?> getShoppingList(@PathVariable Long id) {
         try {
             ShoppingList shoppingList = shoppingListService.get(id);
             return ResponseEntity.ok(shoppingList);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The shoppinglist with ID " + id + " doesn't exist");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The shopping list with ID " + id + " doesn't exist");
+        }
+    }
+
+ */
+
+
+/*
+    @GetMapping("/shoppingLists/{id}")
+    public ResponseEntity<?> getShoppingList(@PathVariable Long id) {
+        try {
+            ShoppingList shoppingList = shoppingListService.get(id);
+            List<ItemEntity> items = shoppingList.getItems();
+            // Now, 'items' contains the associated items for the shopping list
+            return ResponseEntity.ok(shoppingList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("The shopping list with ID " + id + " doesn't exist");
+        }
+    }
+
+ */
+
+
+/*
+    @GetMapping("/shoppingLists/{id}")
+    public ResponseEntity<?> getShoppingList(@PathVariable Long id) {
+        try {
+            ShoppingList shoppingList = shoppingListService.get(id);
+            List<ItemEntity> items = shoppingList.getItems();
+            logger.info("Fetched items for shopping list {}: {}", id, items);
+            return ResponseEntity.ok(shoppingList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("The shopping list with ID " + id + " doesn't exist");
+        }
+    }
+
+ */
+
+    //WORKING ON
+    @GetMapping("/shoppingLists/{id}")
+    public ResponseEntity<?> getShoppingList(@PathVariable Long id) {
+        try {
+            ShoppingList shoppingList = shoppingListService.get(id);
+
+            // Eagerly fetch items and categories
+            shoppingList.getItems().forEach(item -> {
+                item.getcategoryID(); // Eagerly fetch category for each item
+            });
+
+            logger.info("Fetched items for shopping list {}: {}", id, shoppingList.getItems());
+            return ResponseEntity.ok(shoppingList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("The shopping list with ID " + id + " doesn't exist");
         }
     }
 

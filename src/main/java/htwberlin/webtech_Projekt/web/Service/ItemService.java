@@ -33,14 +33,16 @@ public class ItemService {
     public ItemEntity findById(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
     }
-    /*
 
+/*
     public ItemEntity save(ItemEntity item) {
-        ItemEntity itemEntity = new ItemEntity(item.getItemID(), item.getitemName(), item.getQuantity()/*, item.getShopid()*//*, item.getcategoryID());
+        ItemEntity itemEntity = new ItemEntity(item.getItemID(), item.getitemName(), item.getQuantity(), item.getShopid(), item.getcategoryID());
         return mapToItem(repo.save(itemEntity));
     }
 
-    */
+ */
+
+
 
     public ItemEntity save(ItemEntity item) {
         // Check if the item has a categoryID
@@ -57,7 +59,7 @@ public class ItemService {
                     item.getItemID(),
                     item.getitemName(),
                     item.getQuantity(),
-                    item.getShopid(),
+                    item.getidShoppingList(),
                     item.getcategoryID()
             );
 
@@ -70,8 +72,10 @@ public class ItemService {
     }
 
 
+
+
     private ItemEntity mapToItem(ItemEntity itemEntity) {
-        return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity(), itemEntity.getShopid(), itemEntity.getcategoryID());
+        return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity(), itemEntity.getidShoppingList(), itemEntity.getcategoryID());
     }
 
 

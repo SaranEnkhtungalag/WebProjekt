@@ -19,19 +19,21 @@ public class ItemEntity {
     private int quantity;
 
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name= "shop_id", referencedColumnName = "id")
-    @JsonIgnore
-    private ShoppingList shopid;
+    @ManyToOne
+    @JoinColumn(name= "idShoppingList", referencedColumnName = "idShoppingList")
+    @JsonBackReference
+    private ShoppingList idShoppingList;
+
 
     @ManyToOne // Many items can belong to one category
     @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
+
     private CategoryEntity categoryID;
 
     @Column(name = "done")
     private Boolean done;
 
-
+/*
     public ItemEntity(Long itemID, String itemName, int quantity , ShoppingList shopid , CategoryEntity categoryID) {
       this.itemID = itemID;
       this.itemName = itemName;
@@ -39,6 +41,18 @@ public class ItemEntity {
       this.shopid = shopid;
       this.categoryID = categoryID;
       done = false;
+    }
+
+ */
+
+    //WORKING ON
+    public ItemEntity(Long itemID, String itemName, int quantity , ShoppingList idShoppingList , CategoryEntity categoryID) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.idShoppingList = idShoppingList;
+        this.categoryID = categoryID;
+        done = false;
     }
 
 
@@ -65,15 +79,16 @@ public class ItemEntity {
    }
 
 
-    public ShoppingList getShopid() {
-        return shopid;
+    public ShoppingList getidShoppingList() {
+        return idShoppingList;
     }
 
     public void setShopid(ShoppingList shopid) {
-        this.shopid = shopid;
-        shopid.getItems().add(this); // Update the other side of the relationship
+        this.idShoppingList = shopid;
+        if (shopid != null) {
+            shopid.getItems().add(this); // Update the other side of the relationship
+        }
     }
-
 
     public int getQuantity() {
       return quantity;

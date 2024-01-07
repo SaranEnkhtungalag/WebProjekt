@@ -10,6 +10,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 
 
 @Service
@@ -19,11 +26,15 @@ public class ShoppingListService {
     ShoppingListRepository repo;
 
 
-    private ItemService itemService;
+    ItemService itemService;
+
+
 
     public ShoppingList findById(Long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Shopping list not found"));
     }
+
+
 
     public ShoppingList save(ShoppingList shoppingList) {
         return repo.save(shoppingList);
@@ -32,6 +43,7 @@ public class ShoppingListService {
     public ShoppingList get(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("Shopping list not found"));
     }
+
 
     public List<ShoppingList> getAllShoppingLists() {
         return (List<ShoppingList>) repo.findAll();
@@ -82,7 +94,6 @@ public class ShoppingListService {
     }
 
      */
-
 
 
 }

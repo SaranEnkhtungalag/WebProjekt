@@ -12,11 +12,11 @@ public class Item {
 
     private boolean done;
 
-    public Item(Long itemID, String itemName, int quantity/*, ShoppingList shopid */, CategoryEntity categoryID) {
+    public Item(Long itemID, String itemName, int quantity, ShoppingList shopid , CategoryEntity categoryID) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.quantity = quantity;
-        //this.shopid = shopid;
+        this.shopid = shopid;
         this.categoryID = categoryID;
     }
 
@@ -51,4 +51,6 @@ public class Item {
     public void setDone(boolean done) {
         this.done = done;
     }
+
+
 }

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class ShoppingList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "idShoppingList")
     private Long idShoppingList;
     @Column(name = "name")
     private String shoppingName;
@@ -23,18 +23,20 @@ public class ShoppingList {
     private LocalDate deadline;
 
 
-    @OneToMany(mappedBy = "shopid", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idShoppingList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemEntity> items = new ArrayList<>();
+
 
     public ShoppingList() {
         // Default no-arg constructor
+        this.items = new ArrayList<>();
     }
 
 
-    public ShoppingList(Long idShoppingList, String shoppingName, List<ItemEntity> items,boolean done, LocalDate deadline) {
+    public ShoppingList(Long idShoppingList, String shoppingName, boolean done, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
-        this.items = items != null ? items : new ArrayList<>();
+        this.items = new ArrayList<>();
         this.done = done;
         this.deadline = deadline;
     }
@@ -43,9 +45,11 @@ public class ShoppingList {
         return idShoppingList;
     }
 
+
     public void setIdShoppingList(Long idShoppingList) {
         this.idShoppingList = idShoppingList;
     }
+
 
     public String getShoppingName() {
         return shoppingName;
