@@ -48,7 +48,7 @@ public class ShoppingListRestController {
     }
 
  */
-
+ /*
     // creates the default shopping list
     @PostConstruct
     public void initializeDefaultShoppingList() {
@@ -65,30 +65,31 @@ public class ShoppingListRestController {
         }
     }
 
+  */
 
-    /*
+
     // creates the default shopping list
     @PostConstruct
     public void initializeDefaultShoppingList() {
         String defaultShoppingListName = "The Shopping List";
 
-        if (!shoppingListService.existsByName(defaultShoppingListName)) {
-            Long defaultShoppingListId = 15L;
-            if (!shoppingListService.existsById(defaultShoppingListId)) {
-                ShoppingList defaultShoppingList = new ShoppingList();
-                defaultShoppingList.setShoppingName(defaultShoppingListName);
-                defaultShoppingList.setDeadline(LocalDate.now());
-                shoppingListService.save(defaultShoppingList);
-            }
-        }
-
         // Set the deadline to the next Sunday
         LocalDate currentDeadline = LocalDate.now();
         LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
-    }
+        if (!shoppingListService.existsByName(defaultShoppingListName)) {
+            Long defaultShoppingListId = 1L;
+            if (!shoppingListService.existsById(defaultShoppingListId)) {
+                ShoppingList defaultShoppingList = new ShoppingList();
+                defaultShoppingList.setShoppingName(defaultShoppingListName);
+                defaultShoppingList.setDeadline(nextSunday);
+                shoppingListService.save(defaultShoppingList);
+            }
+        }
 
-     */
+
+
+    }
 
 
     // to create a shopping list
