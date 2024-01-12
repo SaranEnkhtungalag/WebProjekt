@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ShoppingListRestController {
 
     @Autowired

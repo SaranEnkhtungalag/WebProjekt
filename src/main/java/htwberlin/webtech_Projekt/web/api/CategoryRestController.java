@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CategoryRestController {
 
     @Autowired

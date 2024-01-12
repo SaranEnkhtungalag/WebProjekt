@@ -11,6 +11,7 @@ import htwberlin.webtech_Projekt.web.Service.ShoppingListService;
 import htwberlin.webtech_Projekt.web.Entities.ShoppingList;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ItemRestController {
 
     private final ItemService itemService;
