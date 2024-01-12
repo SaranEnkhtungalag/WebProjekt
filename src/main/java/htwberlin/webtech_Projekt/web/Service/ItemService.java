@@ -73,7 +73,7 @@ public class ItemService {
         return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity(), itemEntity.getidShoppingList(), itemEntity.getcategoryID());
     }
 
-    /*
+
     public ItemEntity update(Long id, ItemEntity updatedItem) {
         ItemEntity existingItem = repo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
 
@@ -91,43 +91,6 @@ public class ItemService {
         }
         return repo.save(existingItem);
     }
-
-
-    /*
-    public ItemEntity update(Long id, ItemEntity updatedItem) {
-        ItemEntity existingItem = repo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
-
-        if (updatedItem.getitemName() != null) {
-            existingItem.setitemName(updatedItem.getitemName());
-        }
-        if (updatedItem.getQuantity() != 0) {
-            existingItem.setQuantity(updatedItem.getQuantity());
-        }
-        if (updatedItem.getcategoryID() != null) {
-            existingItem.setcategoryID(updatedItem.getcategoryID());
-        }
-        if (updatedItem.isDone() != null) {
-            existingItem.setDone(updatedItem.isDone());
-
-            // Remove the item from the associated shopping list
-            ShoppingList shoppingList = existingItem.getidShoppingList();
-            if (shoppingList != null) {
-                shoppingList.getItems().remove(existingItem);
-            }
-
-            repo.delete(existingItem);
-            return null;
-
-        }
-        return repo.save(existingItem);
-    }
-
-     */
-
-
-
-
-
 
 
 /*
