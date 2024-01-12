@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class ItemEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class ItemEntity {
 
     @ManyToOne // Many items can belong to one category
     @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
-
+    //@JsonBackReference
     private CategoryEntity categoryID;
 
     @Column(name = "done")
@@ -89,6 +91,7 @@ public class ItemEntity {
             shopid.getItems().add(this); // Update the other side of the relationship
         }
     }
+
 
     public int getQuantity() {
       return quantity;

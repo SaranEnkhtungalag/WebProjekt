@@ -2,12 +2,13 @@ package htwberlin.webtech_Projekt.web.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Working on
 
 @Entity(name = "shoppingLists")
 public class ShoppingList {
@@ -17,13 +18,14 @@ public class ShoppingList {
     private Long idShoppingList;
     @Column(name = "name")
     private String shoppingName;
-    @Column(name = "done")
-    private Boolean done;
+
+    //@Column(name = "done")
+    //private Boolean done;
     @Column(name = "deadline")
     private LocalDate deadline;
 
-
     @OneToMany(mappedBy = "idShoppingList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("idShoppingList")
     private List<ItemEntity> items = new ArrayList<>();
 
 
@@ -37,7 +39,7 @@ public class ShoppingList {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
         this.items = new ArrayList<>();
-        this.done = done;
+        //this.done = done;
         this.deadline = deadline;
     }
 
@@ -66,6 +68,7 @@ public class ShoppingList {
         this.items = items;
     }
 
+    /*
     public Boolean isDone() {
         return done;
     }
@@ -74,6 +77,8 @@ public class ShoppingList {
         this.done = done;
     }
 
+     */
+
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -81,6 +86,7 @@ public class ShoppingList {
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
+
 
 
 

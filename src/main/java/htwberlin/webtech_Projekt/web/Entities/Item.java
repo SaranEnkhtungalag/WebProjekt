@@ -4,7 +4,7 @@ public class Item {
 
     private Long itemID;
     private String itemName;
-    private ShoppingList shopid;
+    private ShoppingList idShoppingList;
 
     private CategoryEntity categoryID;
 
@@ -12,11 +12,11 @@ public class Item {
 
     private boolean done;
 
-    public Item(Long itemID, String itemName, int quantity, ShoppingList shopid , CategoryEntity categoryID) {
+    public Item(Long itemID, String itemName, int quantity, ShoppingList idShoppingList , CategoryEntity categoryID) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.quantity = quantity;
-        this.shopid = shopid;
+        this.idShoppingList = idShoppingList;
         this.categoryID = categoryID;
     }
 

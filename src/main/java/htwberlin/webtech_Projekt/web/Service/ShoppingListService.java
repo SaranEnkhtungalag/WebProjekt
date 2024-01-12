@@ -10,6 +10,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.time.DayOfWeek;
 import java.util.Optional;
 import java.util.List;
 
@@ -25,15 +28,12 @@ public class ShoppingListService {
     @Autowired
     ShoppingListRepository repo;
 
-
     ItemService itemService;
-
 
 
     public ShoppingList findById(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("Shopping list not found"));
     }
-
 
 
     public ShoppingList save(ShoppingList shoppingList) {
@@ -50,20 +50,16 @@ public class ShoppingListService {
     }
 
 
+    // to update the shopping list name
     public ShoppingList update(Long id, ShoppingList updatedShoppingList) {
         ShoppingList existingShoppingList = get(id);
 
         if (updatedShoppingList.getShoppingName() != null) {
             existingShoppingList.setShoppingName(updatedShoppingList.getShoppingName());
         }
-        if (updatedShoppingList.isDone() != null) {
-            existingShoppingList.setDone(updatedShoppingList.isDone());
-        }
-        if (updatedShoppingList.getDeadline() != null) {
-            existingShoppingList.setDeadline(updatedShoppingList.getDeadline());
-        }
         return repo.save(existingShoppingList);
     }
+
 
     public void delete(Long id) {
         repo.deleteById(id);
@@ -73,27 +69,53 @@ public class ShoppingListService {
         repo.deleteAll();
     }
 
-    /*
-    @Scheduled(cron = "0 59 23 ? * SUN") // Cron expression for every Sunday at 23:59
+
+    // automatically trigger the update of the deadline every weekend
+    @Scheduled(cron = "0 0 0 * * SUN")
+    public void updateShoppingListForNextWeekAutomatically() {
+        // Assuming you always want to update the shopping list with ID 1
+        updateShoppingListForNextWeek(1L);
+    }
+
+    // update the deadline to the next weekend
     @Transactional
-    public void performWeeklyCleanup() {
-        ShoppingList currentShoppingList = getCurrentShoppingList();
+    public void updateShoppingListForNextWeek(Long shoppingListId) {
+        // Fetch the shopping list by ID
+        ShoppingList shoppingList = repo.findById(shoppingListId)
+                .orElseThrow(() -> new RuntimeException("Shopping List not found"));
 
-        if (currentShoppingList != null) {
-            currentShoppingList.setDone(true);
-            repo.save(currentShoppingList);
+        // Set the deadline to the next Sunday
+        LocalDate currentDeadline = shoppingList.getDeadline();
+        LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        shoppingList.setDeadline(nextSunday);
 
-            // Update items for the new shopping list or delete items
-            itemService.updateItemsForNewShoppingList(currentShoppingList.getItems());
-        }
+        // ... any other updates you want to perform
+
+        // Save the updated shopping list
+        repo.save(shoppingList);
     }
 
-    public ShoppingList getCurrentShoppingList() {
-        // Fetch the current shopping list based on some criteria, e.g., not done and closest deadline
-        return repo.findFirstByDoneOrderByDeadlineAsc(false);
+
+    // this method checks for the method "initializeDefaultShoppingList" in ShoppingListRestController class
+    // whether the default shopping list exists
+    public boolean existsByName(String shoppingListName) {
+        return repo.existsShoppingListByShoppingName(shoppingListName);
     }
 
-     */
+
+    // this method checks for the method "initializeDefaultShoppingList" in ShoppingListRestController class
+    // whether the default shopping list exists
+    public boolean existsById(Long id) {
+        return repo.existsById(id);
+    }
+
+
+    // this method provides the method "createItem" in the ItemRestController class with the id of
+    // the only shopping list exists
+    public ShoppingList getAutomaticallyCreatedShoppingList() {
+        // Assuming you always want to get the shopping list with ID 1
+        return repo.findById(8L).orElseThrow(() -> new RuntimeException("Shopping List not found"));
+    }
 
 
 }

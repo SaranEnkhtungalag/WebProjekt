@@ -15,30 +15,61 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import org.springframework.http.HttpStatus;
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+
 
 @RestController
 public class ShoppingListRestController {
-
 
     @Autowired
     private ShoppingListService shoppingListService;
 
     Logger logger = LoggerFactory.getLogger(ShoppingListRestController.class);
 
+/*
+    // creates the default shopping list
+    @PostConstruct
+    public void initializeDefaultShoppingList() {
+        // Check if the default shopping list already exists
+        if (!shoppingListService.existsByName("The Shopping List")) {
+            // Create the default shopping list
+            ShoppingList defaultShoppingList = new ShoppingList();
+            defaultShoppingList.setShoppingName("The Shopping List");
+            defaultShoppingList.setDeadline(LocalDate.now());
+
+            // Set other properties if needed
+            shoppingListService.save(defaultShoppingList);
+        }
+    }
+
+ */
+
+    // creates the default shopping list
+    @PostConstruct
+    public void initializeDefaultShoppingList() {
+        String defaultShoppingListName = "The Shopping List";
+
+        if (!shoppingListService.existsByName(defaultShoppingListName)) {
+            Long defaultShoppingListId = 8L;
+            if (!shoppingListService.existsById(defaultShoppingListId)) {
+                ShoppingList defaultShoppingList = new ShoppingList();
+                defaultShoppingList.setShoppingName(defaultShoppingListName);
+                defaultShoppingList.setDeadline(LocalDate.now());
+                shoppingListService.save(defaultShoppingList);
+            }
+        }
+    }
+
+
+    // to create a shopping list
+    // only for backend --> no shopping list needs to be created as the default shopping list
+    // will be created automatically
     @PostMapping("/shoppingLists")
     public ShoppingList createShoppingList(@RequestBody ShoppingList shoppingList) {
         return shoppingListService.save(shoppingList);
     }
 
-//    @PostMapping("/shoppingListV2")
-//    public ResponseEntity<ShoppingList> createShoppingListV2(@RequestBody ShoppingList shoppingListEntity) {
-//        try {
-//            ShoppingList createdShoppingList = service.save(shoppingListEntity);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(createdShoppingList);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//        }
-//    }
 
     // to see all the shopping lists
     @GetMapping("/shoppingLists")
@@ -48,16 +79,14 @@ public class ShoppingListRestController {
     }
 
 
+    // to show a shopping list
     @GetMapping("/shoppingLists/{id}")
     public ResponseEntity<?> getShoppingList(@PathVariable Long id) {
         try {
             ShoppingList shoppingList = shoppingListService.get(id);
-
-            // Eagerly fetch items and categories
             shoppingList.getItems().forEach(item -> {
                 item.getcategoryID();
             });
-
             logger.info("Fetched items for shopping list {}: {}", id, shoppingList.getItems());
             return ResponseEntity.ok(shoppingList);
         } catch (RuntimeException e) {
@@ -79,6 +108,8 @@ public class ShoppingListRestController {
         }
     }
 
+
+    // to delete a shopping list
     @DeleteMapping("/shoppingLists/{id}")
     public ResponseEntity<String> deleteShoppingList(@PathVariable Long id) {
         try {
@@ -103,19 +134,26 @@ public class ShoppingListRestController {
         return ResponseEntity.ok("All shoppinglists were deleted successfully");
     }
 
-    /*
-    //Working on
-    @PostMapping("/shoppingLists/{id}/weeklyCleanup")
-    public ResponseEntity<String> performWeeklyCleanup(@PathVariable Long id) {
+
+    // trigger the update of the deadline manually if needed
+    @PostMapping("/shoppingLists/updateForNextWeek")
+    public ResponseEntity<String> updateShoppingListForNextWeek() {
         try {
-            service.performWeeklyCleanup();
-            return ResponseEntity.ok("Weekly cleanup performed successfully");
-        } catch (Exception e) {
-            logger.error("Error performing weekly cleanup", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error performing weekly cleanup");
+
+            ShoppingList shoppingList = shoppingListService.findById(6L);
+            logger.info("Current Deadline: {}", shoppingList.getDeadline());
+
+            shoppingListService.updateShoppingListForNextWeek(6L);
+
+            shoppingList = shoppingListService.findById(6L);
+            logger.info("Updated Deadline: {}", shoppingList.getDeadline());
+
+            return ResponseEntity.ok("Shopping List updated for next week successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating Shopping List for next week");
         }
     }
-     */
 
 
 }

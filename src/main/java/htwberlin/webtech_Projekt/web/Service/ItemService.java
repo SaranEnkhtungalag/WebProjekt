@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 
 @Service
@@ -16,7 +17,6 @@ public class ItemService {
 
     private final ItemRepository repo;
     private final CategoryService categoryService;  // Inject CategoryService
-
     private ShoppingListService shoppingListService;
 
     @Autowired
@@ -43,7 +43,6 @@ public class ItemService {
  */
 
 
-
     public ItemEntity save(ItemEntity item) {
         // Check if the item has a categoryID
         if (item.getcategoryID() != null) {
@@ -53,7 +52,6 @@ public class ItemService {
             if (categoryEntity == null) {
                 throw new RuntimeException("Category not found for ID: " + item.getcategoryID().getCategoryID());
             }
-
             // Create a new ItemEntity with the fetched CategoryEntity
             ItemEntity itemEntity = new ItemEntity(
                     item.getItemID(),
@@ -62,7 +60,6 @@ public class ItemService {
                     item.getidShoppingList(),
                     item.getcategoryID()
             );
-
             // Save the itemEntity
             return mapToItem(repo.save(itemEntity));
         } else {
@@ -70,8 +67,6 @@ public class ItemService {
             throw new RuntimeException("CategoryID is required for saving an item." + item.getcategoryID().getCategoryID());
         }
     }
-
-
 
 
     private ItemEntity mapToItem(ItemEntity itemEntity) {
@@ -97,34 +92,49 @@ public class ItemService {
         return repo.save(existingItem);
     }
 
-
+/*
     public void delete(Long id) {
         repo.deleteById(id);
     }
 
-    public void deleteAllItems() {
-        repo.deleteAll();
+ */
 
+
+    @Transactional
+    public void delete(Long itemId) {
+        ItemEntity item = repo.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        // Remove the item from the associated shopping list
+        ShoppingList shoppingList = item.getidShoppingList();
+        if (shoppingList != null) {
+            shoppingList.getItems().remove(item);
+        }
+
+        repo.delete(item);
     }
 
     /*
-    //Working on
-    @Transactional
-    public void updateItemsForNewShoppingList(List<ItemEntity> items) {
-        ShoppingList newShoppingList = shoppingListService.getCurrentShoppingList();
-
-        for (ItemEntity item : items) {
-            if (!item.isDone()) {
-                // Update items that are not done to be in the new shopping list
-                item.setShopid(newShoppingList);
-            } else {
-                // Delete items that are done
-                delete(item.getItemID());
-            }
-        }
+    public void deleteAllItems() {
+        repo.deleteAll();
     }
 
      */
+
+
+    public void deleteAllItems() {
+        List<ItemEntity> allItems = repo.findAll();
+        ShoppingList shoppingList;
+
+        for (ItemEntity itemEntity : allItems) {
+            shoppingList = itemEntity.getidShoppingList();
+
+            if (shoppingList != null) {
+                shoppingList.getItems().remove(itemEntity);
+            }
+        }
+        repo.deleteAll();
+    }
 
 
 }

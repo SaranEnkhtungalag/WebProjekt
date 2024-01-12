@@ -48,6 +48,4 @@ public class CategoryEntity {
         this.categoryName = categoryName;
     }
 
-
-
 }
