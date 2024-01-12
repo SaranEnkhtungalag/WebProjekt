@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.DayOfWeek;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import javax.annotation.PostConstruct;
@@ -52,7 +55,7 @@ public class ShoppingListRestController {
         String defaultShoppingListName = "The Shopping List";
 
         if (!shoppingListService.existsByName(defaultShoppingListName)) {
-            Long defaultShoppingListId = 15L;
+            Long defaultShoppingListId = 1L;
             if (!shoppingListService.existsById(defaultShoppingListId)) {
                 ShoppingList defaultShoppingList = new ShoppingList();
                 defaultShoppingList.setShoppingName(defaultShoppingListName);
@@ -61,6 +64,31 @@ public class ShoppingListRestController {
             }
         }
     }
+
+
+    /*
+    // creates the default shopping list
+    @PostConstruct
+    public void initializeDefaultShoppingList() {
+        String defaultShoppingListName = "The Shopping List";
+
+        if (!shoppingListService.existsByName(defaultShoppingListName)) {
+            Long defaultShoppingListId = 15L;
+            if (!shoppingListService.existsById(defaultShoppingListId)) {
+                ShoppingList defaultShoppingList = new ShoppingList();
+                defaultShoppingList.setShoppingName(defaultShoppingListName);
+                defaultShoppingList.setDeadline(LocalDate.now());
+                shoppingListService.save(defaultShoppingList);
+            }
+        }
+
+        // Set the deadline to the next Sunday
+        LocalDate currentDeadline = LocalDate.now();
+        LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+
+    }
+
+     */
 
 
     // to create a shopping list
@@ -141,12 +169,12 @@ public class ShoppingListRestController {
     public ResponseEntity<String> updateShoppingListForNextWeek() {
         try {
 
-            ShoppingList shoppingList = shoppingListService.findById(8L);
+            ShoppingList shoppingList = shoppingListService.findById(1L);
             logger.info("Current Deadline: {}", shoppingList.getDeadline());
 
-            shoppingListService.updateShoppingListForNextWeek(8L);
+            shoppingListService.updateShoppingListForNextWeek(1L);
 
-            shoppingList = shoppingListService.findById(8L);
+            shoppingList = shoppingListService.findById(1L);
             logger.info("Updated Deadline: {}", shoppingList.getDeadline());
 
             return ResponseEntity.ok("Shopping List updated for next week successfully");

@@ -73,7 +73,7 @@ public class ItemService {
         return new ItemEntity(itemEntity.getItemID(), itemEntity.getitemName(), itemEntity.getQuantity(), itemEntity.getidShoppingList(), itemEntity.getcategoryID());
     }
 
-
+    /*
     public ItemEntity update(Long id, ItemEntity updatedItem) {
         ItemEntity existingItem = repo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
 

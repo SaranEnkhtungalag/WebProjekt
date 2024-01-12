@@ -101,37 +101,6 @@ public class ShoppingListService {
     }
 
 
-/*
-    @Transactional
-    public void updateShoppingListForNextWeek(Long shoppingListId) {
-        // Fetch the shopping list by ID
-        ShoppingList shoppingList = repo.findById(shoppingListId)
-                .orElseThrow(() -> new RuntimeException("Shopping List not found"));
-
-        // Set the deadline to the next Sunday
-        LocalDate currentDeadline = shoppingList.getDeadline();
-        LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-        shoppingList.setDeadline(nextSunday);
-
-        // ... any other updates you want to perform
-
-        // Save the updated shopping list
-        repo.save(shoppingList);
-
-        // Delete items with done set to true
-        List<ItemEntity> itemsToDelete = shoppingList.getItems().stream()
-                .filter(ItemEntity::isDone)
-                .collect(Collectors.toList());
-
-        for (ItemEntity item : itemsToDelete) {
-            itemRepository.delete(item);  // Use the ItemRepository to delete items
-        }
-    }
-
- */
-
-
-
     // this method checks for the method "initializeDefaultShoppingList" in ShoppingListRestController class
     // whether the default shopping list exists
     public boolean existsByName(String shoppingListName) {
@@ -150,7 +119,7 @@ public class ShoppingListService {
     // the only shopping list exists
     public ShoppingList getAutomaticallyCreatedShoppingList() {
         // Assuming you always want to get the shopping list with ID 1
-        return repo.findById(15L).orElseThrow(() -> new RuntimeException("Shopping List not found"));
+        return repo.findById(1L).orElseThrow(() -> new RuntimeException("Shopping List not found"));
     }
 
 
