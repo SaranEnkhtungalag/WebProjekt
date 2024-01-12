@@ -51,7 +51,7 @@ public class ShoppingListRestController {
         String defaultShoppingListName = "The Shopping List";
 
         if (!shoppingListService.existsByName(defaultShoppingListName)) {
-            Long defaultShoppingListId = 8L;
+            Long defaultShoppingListId = 15L;
             if (!shoppingListService.existsById(defaultShoppingListId)) {
                 ShoppingList defaultShoppingList = new ShoppingList();
                 defaultShoppingList.setShoppingName(defaultShoppingListName);
@@ -140,12 +140,12 @@ public class ShoppingListRestController {
     public ResponseEntity<String> updateShoppingListForNextWeek() {
         try {
 
-            ShoppingList shoppingList = shoppingListService.findById(6L);
+            ShoppingList shoppingList = shoppingListService.findById(8L);
             logger.info("Current Deadline: {}", shoppingList.getDeadline());
 
-            shoppingListService.updateShoppingListForNextWeek(6L);
+            shoppingListService.updateShoppingListForNextWeek(8L);
 
-            shoppingList = shoppingListService.findById(6L);
+            shoppingList = shoppingListService.findById(8L);
             logger.info("Updated Deadline: {}", shoppingList.getDeadline());
 
             return ResponseEntity.ok("Shopping List updated for next week successfully");

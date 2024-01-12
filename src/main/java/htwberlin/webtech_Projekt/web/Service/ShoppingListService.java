@@ -15,10 +15,11 @@ import java.time.temporal.TemporalAdjusters;
 import java.time.DayOfWeek;
 import java.util.Optional;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import htwberlin.webtech_Projekt.web.Repositories.ItemRepository;
 
 
 
@@ -27,6 +28,9 @@ public class ShoppingListService {
 
     @Autowired
     ShoppingListRepository repo;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     ItemService itemService;
 
@@ -77,6 +81,7 @@ public class ShoppingListService {
         updateShoppingListForNextWeek(1L);
     }
 
+
     // update the deadline to the next weekend
     @Transactional
     public void updateShoppingListForNextWeek(Long shoppingListId) {
@@ -94,6 +99,37 @@ public class ShoppingListService {
         // Save the updated shopping list
         repo.save(shoppingList);
     }
+
+
+/*
+    @Transactional
+    public void updateShoppingListForNextWeek(Long shoppingListId) {
+        // Fetch the shopping list by ID
+        ShoppingList shoppingList = repo.findById(shoppingListId)
+                .orElseThrow(() -> new RuntimeException("Shopping List not found"));
+
+        // Set the deadline to the next Sunday
+        LocalDate currentDeadline = shoppingList.getDeadline();
+        LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        shoppingList.setDeadline(nextSunday);
+
+        // ... any other updates you want to perform
+
+        // Save the updated shopping list
+        repo.save(shoppingList);
+
+        // Delete items with done set to true
+        List<ItemEntity> itemsToDelete = shoppingList.getItems().stream()
+                .filter(ItemEntity::isDone)
+                .collect(Collectors.toList());
+
+        for (ItemEntity item : itemsToDelete) {
+            itemRepository.delete(item);  // Use the ItemRepository to delete items
+        }
+    }
+
+ */
+
 
 
     // this method checks for the method "initializeDefaultShoppingList" in ShoppingListRestController class
@@ -114,7 +150,7 @@ public class ShoppingListService {
     // the only shopping list exists
     public ShoppingList getAutomaticallyCreatedShoppingList() {
         // Assuming you always want to get the shopping list with ID 1
-        return repo.findById(8L).orElseThrow(() -> new RuntimeException("Shopping List not found"));
+        return repo.findById(15L).orElseThrow(() -> new RuntimeException("Shopping List not found"));
     }
 
 
