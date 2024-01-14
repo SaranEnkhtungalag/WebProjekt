@@ -45,16 +45,16 @@ public class CategoryRestController {
         // method to add default categories
 
         // Check if categories already exist
-        if (!categoryService.existsByName("Lebensmittel")) {
-            categoryService.save(new CategoryEntity(1L,"Lebensmittel"));
+        if (!categoryService.existsByName("Groceries")) {
+            categoryService.save(new CategoryEntity(1L,"Groceries"));
         }
 
-        if (!categoryService.existsByName("Reinigungsmittel")) {
-            categoryService.save(new CategoryEntity(2L,"Reinigungsmittel"));
+        if (!categoryService.existsByName("Cleaning-Supplies")) {
+            categoryService.save(new CategoryEntity(2L,"Cleaning-Supplies"));
         }
 
-        if (!categoryService.existsByName("Kleidung")) {
-            categoryService.save(new CategoryEntity(3L,"Kleidung"));
+        if (!categoryService.existsByName("Clothes")) {
+            categoryService.save(new CategoryEntity(3L,"Clothes"));
         }
 
     }
