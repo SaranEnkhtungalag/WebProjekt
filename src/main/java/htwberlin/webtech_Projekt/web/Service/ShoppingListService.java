@@ -85,7 +85,6 @@ public class ShoppingListService {
     // update the deadline to the next weekend
     @Transactional
     public void updateShoppingListForNextWeek(Long shoppingListId) {
-        // Fetch the shopping list by ID
         ShoppingList shoppingList = repo.findById(shoppingListId)
                 .orElseThrow(() -> new RuntimeException("Shopping List not found"));
 
@@ -93,8 +92,6 @@ public class ShoppingListService {
         LocalDate currentDeadline = shoppingList.getDeadline();
         LocalDate nextSunday = currentDeadline.plusDays(1).with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
         shoppingList.setDeadline(nextSunday);
-
-        // ... any other updates you want to perform
 
         // Save the updated shopping list
         repo.save(shoppingList);

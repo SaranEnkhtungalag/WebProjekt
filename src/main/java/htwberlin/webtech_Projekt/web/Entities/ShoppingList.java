@@ -8,7 +8,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//Working on
 
 @Entity(name = "shoppingLists")
 public class ShoppingList {
@@ -19,8 +18,6 @@ public class ShoppingList {
     @Column(name = "name")
     private String shoppingName;
 
-    //@Column(name = "done")
-    //private Boolean done;
     @Column(name = "deadline")
     private LocalDate deadline;
 
@@ -35,11 +32,10 @@ public class ShoppingList {
     }
 
 
-    public ShoppingList(Long idShoppingList, String shoppingName, boolean done, LocalDate deadline) {
+    public ShoppingList(Long idShoppingList, String shoppingName, LocalDate deadline) {
         this.idShoppingList = idShoppingList;
         this.shoppingName = shoppingName;
         this.items = new ArrayList<>();
-        //this.done = done;
         this.deadline = deadline;
     }
 
@@ -47,11 +43,9 @@ public class ShoppingList {
         return idShoppingList;
     }
 
-
     public void setIdShoppingList(Long idShoppingList) {
         this.idShoppingList = idShoppingList;
     }
-
 
     public String getShoppingName() {
         return shoppingName;
@@ -68,17 +62,6 @@ public class ShoppingList {
         this.items = items;
     }
 
-    /*
-    public Boolean isDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
-    }
-
-     */
-
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -86,8 +69,5 @@ public class ShoppingList {
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
-
-
-
 
 }

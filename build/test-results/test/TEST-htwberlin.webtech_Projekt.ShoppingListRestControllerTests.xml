@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="htwberlin.webtech_Projekt.ShoppingListRestControllerTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-01-14T21:55:56" hostname="DESKTOP-CUPV53L" time="3.231">
+  <properties/>
+  <testcase name="should_get_all_shopping_lists()" classname="htwberlin.webtech_Projekt.ShoppingListRestControllerTests" time="3.196"/>
+  <testcase name="should_delete_all_shopping_lists()" classname="htwberlin.webtech_Projekt.ShoppingListRestControllerTests" time="0.029"/>
+  <system-out><![CDATA[22:55:58.803 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+22:55:58.810 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+22:55:58.819 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 7 ms
+22:55:59.271 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+22:55:59.272 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+22:55:59.272 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

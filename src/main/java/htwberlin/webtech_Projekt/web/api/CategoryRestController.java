@@ -30,12 +30,8 @@ public class CategoryRestController {
 
     private List<CategoryEntity> categories;
 
-    // the constructor can be deleted if we don't want to define an already existing categories
+
     public CategoryRestController(CategoryService categoryService) {
-        //categories = new ArrayList<>();
-        //categories.add(new Category(1L,"Lebensmittel"));
-        //categories.add(new Category(2L, "Reinigunsmittel"));
-        //categories.add(new Category(3L, "Kleidung"));
 
         this.categoryService = categoryService;
     }

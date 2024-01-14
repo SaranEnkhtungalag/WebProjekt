@@ -76,8 +76,6 @@ public class ItemRestController {
     }
 
 
-
-
     // to delete one item
     @DeleteMapping("/items/{id}")
     public ResponseEntity<String> deleteItem(@PathVariable Long id) {
