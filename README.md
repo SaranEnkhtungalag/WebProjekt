@@ -2,24 +2,20 @@
 Enkhtungalag Saran s0580122
 Mohanad Dakkak s0580854
 
-Projektbeschreibung:Shopping List
+Project: Shopping List
 
 
-Funktionalität:
-Liste erstellen.
-Kategorien: Lebensmittel:
-                Obst & Gemüse
-                Fleisch
-                Getränke
-                Gefrierene Sachen  
-                Süssigkeiten
-            Haushalt, 
-            Kleidung, 
-Items einfügen
-Items löschen
-Items ändern
-Items hacken
+Functionality:
+Create an item in the shopping list,
+Assign an item to a category,
+edit an item,
+Create a category,
+hack an item as done,
+delete an item,
+change shopping list name,
+deadline changes automatically at the weekend.
 
-Wenn Items nicht gehackt dann kommen die auf nächste Woche automatisch
+
+
 
 
